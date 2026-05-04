@@ -19,15 +19,23 @@ public class InventoryServiceRoutes {
     @Bean
     public RouterFunction<ServerResponse> inventoryRoutes() {
         return GatewayRouterFunctions.route("inventory-service")
+                .route(RequestPredicates.path("/inventory/events"),
+                        request -> HandlerFunctions.http("http://localhost:8080/api/v1/inventory/events").handle(request))
                 .route(RequestPredicates.path("/inventory/venue/{venueId}"),
                         request -> forwardWithPathVariable(request, "venueId", "http://localhost:8080/api/v1/inventory/venue/"))
-
                 .route(RequestPredicates.path("/inventory/event/{eventId}"),
                         request -> forwardWithPathVariable(request, "eventId", "http://localhost:8080/api/v1/inventory/event/"))
                 .build();
 
 
     }
+
+    private static ServerResponse forwardWithPathVariable(ServerRequest request, String pathVariable, String baseUrl) throws Exception {
+        String value = request.pathVariable(pathVariable);
+        return HandlerFunctions.http(baseUrl + value).handle(request);
+
+    }
+}
 
     private static ServerResponse forwardWithPathVariable(ServerRequest request, String pathVariable, String baseUrl) throws Exception {
         String value = request.pathVariable(pathVariable);
