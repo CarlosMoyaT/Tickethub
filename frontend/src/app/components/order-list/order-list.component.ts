@@ -33,8 +33,6 @@ export class OrderListComponent implements OnInit {
 
   loadOrders(): void {
     this.loading.set(true);
-    // En un escenario real, obtendrías el customerId del servicio de autenticación
-    // Por ahora, obtenemos todas las órdenes
     this.orderService.getAllOrders().subscribe({
       next: (data) => {
         this.orders.set(data);
@@ -48,6 +46,8 @@ export class OrderListComponent implements OnInit {
     });
   }
 
+  // Order status is not returned by backend currently
+  // These methods are kept for future use
   getStatusClass(status: OrderStatus): string {
     switch (status) {
       case OrderStatus.COMPLETED:

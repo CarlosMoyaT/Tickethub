@@ -34,17 +34,14 @@
 
   @if (!loading() && !error() && orders().length > 0) {
     <div class="orders-grid">
-      @for (order of orders(); track order.orderId) {
+      @for (order of orders(); track order.id) {
         <mat-card class="order-card">
           <mat-card-header>
             <div class="order-header">
               <div class="order-id">
                 <mat-icon>confirmation_number</mat-icon>
-                <span>{{ order.orderId }}</span>
+                <span>{{ order.id }}</span>
               </div>
-              <mat-chip [class]="getStatusClass(order.status)">
-                {{ getStatusText(order.status) }}
-              </mat-chip>
             </div>
           </mat-card-header>
 
@@ -53,8 +50,8 @@
               <div class="detail-item">
                 <mat-icon>event</mat-icon>
                 <div>
-                  <div class="label">Evento</div>
-                  <div class="value">{{ order.eventName }}</div>
+                  <div class="label">Evento ID</div>
+                  <div class="value">{{ order.eventId }}</div>
                 </div>
               </div>
 
@@ -62,7 +59,7 @@
                 <mat-icon>calendar_today</mat-icon>
                 <div>
                   <div class="label">Fecha de reserva</div>
-                  <div class="value">{{ order.orderDate | date:'dd/MM/yyyy HH:mm' }}</div>
+                  <div class="value">{{ order.placedAt | date:'dd/MM/yyyy HH:mm' }}</div>
                 </div>
               </div>
 
@@ -70,7 +67,7 @@
                 <mat-icon>shopping_cart</mat-icon>
                 <div>
                   <div class="label">Cantidad</div>
-                  <div class="value">{{ order.quantity }} entrada(s)</div>
+                  <div class="value">{{ order.ticketCount }} entrada(s)</div>
                 </div>
               </div>
 
@@ -78,22 +75,11 @@
                 <mat-icon>euro</mat-icon>
                 <div>
                   <div class="label">Total</div>
-                  <div class="value amount">{{ order.totalAmount | currency:'EUR' }}</div>
+                  <div class="value amount">{{ order.totalPrice | currency:'EUR' }}</div>
                 </div>
               </div>
             </div>
           </mat-card-content>
-
-          <mat-card-actions>
-            <button mat-stroked-button color="primary">
-              <mat-icon>download</mat-icon>
-              Descargar Entradas
-            </button>
-            <button mat-button>
-              <mat-icon>info</mat-icon>
-              Ver Detalles
-            </button>
-          </mat-card-actions>
         </mat-card>
       }
     </div>

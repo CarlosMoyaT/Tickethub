@@ -1,0 +1,61 @@
+
+.navbar {
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: 0 1rem;
+
+  .navbar-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      color: #667eea;
+
+      mat-icon {
+        font-size: 2rem;
+        width: 2rem;
+        height: 2rem;
+      }
+
+      .logo-text {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 1.5rem;
+        font-weight: 700;
+      }
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 0.5rem;
+
+      a {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 500;
+        color: #333;
+        text-transform: none;
+        font-size: 1rem;
+
+        &:hover, &.active {
+          color: #667eea;
+          background: rgba(102, 126, 234, 0.1);
+        }
+
+        &.active {
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}

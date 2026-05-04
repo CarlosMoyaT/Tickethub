@@ -1,23 +1,12 @@
 export interface BookingRequest {
+    userId: string;
     eventId: number;
-    customerId: string;
-    quantity: number;
-    customerEmail: string;
-    customerName: string;
+    ticketCount: number;
 }
 
 export interface BookingResponse {
-    bookingId: string;
+    userId: string;
     eventId: number;
-    customerId: string;
-    quantity: number;
-    totalAmout: number;
-    bookingDate: string;
-    status: BookingStatus;
-}
-
-export enum BookingStatus {
-    PENDING = 'PENDING',
-    CONFIRMED = 'CONFIRMED',
-    CANCELLED = 'CANCELLED'
+    ticketCount: number;
+    totalPrice: number;
 }

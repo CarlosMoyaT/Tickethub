@@ -1,12 +1,10 @@
 export interface Order {
-    orderId: string;
-    customerId: string;
+    id: number;
+    customerId: number;
     eventId: number;
-    eventName: string;
-    quantity: number;
-    totalAmount: number;
-    orderDate: string;
-    status: OrderStatus;
+    ticketCount: number;
+    totalPrice: number;
+    placedAt: string;
 }
 
 export enum OrderStatus {

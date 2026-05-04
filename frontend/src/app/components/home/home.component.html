@@ -1,0 +1,46 @@
+<div class="home-container">
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-title">Bienvenido a TicketHub</h1>
+      <p class="hero-subtitle">Descubre y reserva entradas para los mejores eventos</p>
+      <button mat-raised-button color="primary" class="cta-button" (click)="exploreEvents()">
+        <mat-icon>search</mat-icon>
+        Explorar Eventos
+      </button>
+    </div>
+    <div class="hero-decoration">
+      <div class="circle-decoration circle-1"></div>
+      <div class="circle-decoration circle-2"></div>
+      <div class="circle-decoration circle-3"></div>
+    </div>
+  </section>
+
+  <section class="features-section">
+    <h2 class="section-title">¿Por qué elegir TicketHub?</h2>
+    <div class="features-grid">
+      @for (feature of features; track feature.icon) {
+        <mat-card class="feature-card">
+          <mat-card-content>
+            <div class="feature-icon">
+              <mat-icon>{{ feature.icon }}</mat-icon>
+            </div>
+            <h3 class="feature-title">{{ feature.title }}</h3>
+            <p class="feature-description">{{ feature.description }}</p>
+          </mat-card-content>
+        </mat-card>
+      }
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <mat-card class="cta-card">
+      <mat-card-content>
+        <h2>¿Listo para el próximo evento?</h2>
+        <p>Explora nuestra selección de eventos y asegura tu lugar hoy mismo</p>
+        <button mat-raised-button color="accent" (click)="exploreEvents()">
+          Ver Eventos Disponibles
+        </button>
+      </mat-card-content>
+    </mat-card>
+  </section>
+</div>

@@ -72,7 +72,7 @@ export class BookingFormComponent implements OnInit {
             },
             error: (err: any) => {
                 console.error('Error loading event:', err)
-                this.snackBar.open('Error to load the event', 'close', { duration: 3000 });
+                this.snackBar.open('Error al cargar el evento', 'Cerrar', { duration: 3000 });
                 this.router.navigate(['/events']);
             }
         });
@@ -89,26 +89,24 @@ export class BookingFormComponent implements OnInit {
             this.submitting.set(true);
 
             const bookingRequest: BookingRequest = {
+                userId: this.generateCustomerId(),
                 eventId: this.event()!.id,
-                customerId: this.generateCustomerId(),
-                customerName: this.bookingForm.get('customerName')?.value,
-                customerEmail: this.bookingForm.get('customerEmail')?.value,
-                quantity: this.bookingForm.get('quantity')?.value
+                ticketCount: this.bookingForm.get('quantity')?.value
             };
 
             this.bookingService.createBooking(bookingRequest).subscribe({
               next: (response) => {
                 this.submitting.set(false);
-                this.snackBar.open('¡Reserva realizada con éxito!', 'Cerrar', { 
+                this.snackBar.open('¡Reserva realizada con éxito!', 'Cerrar', {
                   duration: 5000,
                   panelClass: ['success-snackbar']
                 });
-                this.router.navigate(['/orders']);
+                this.router.navigate(['/events']);
               },
               error: (err) => {
                 this.submitting.set(false);
                 console.error('Error creating booking:', err);
-                this.snackBar.open('Error al realizar la reserva. Intenta de nuevo.', 'Cerrar', { 
+                this.snackBar.open('Error al realizar la reserva. Intenta de nuevo.', 'Cerrar', {
                   duration: 3000,
                   panelClass: ['error-snackbar']
                 });
@@ -118,7 +116,7 @@ export class BookingFormComponent implements OnInit {
     }
 
     private generateCustomerId(): string {
-    return 'CUST-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+        return 'CUST-' + Date.now() + '-' + Math.random().toString(36).substring(2, 9);
     }
 
     goBack(): void {
