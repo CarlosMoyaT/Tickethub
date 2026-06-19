@@ -2,7 +2,8 @@
 [![Live Demo](https://img.shields.io/badge/Live-Demo-success)](https://carlos-moya-t-spring-boot-microservicios-a086461cr.vercel.app/home)
 [![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.x-brightgreen)]()
 [![Microservices](https://img.shields.io/badge/Architecture-Microservices-blue)]()
-(https://carlos-moya-t-spring-boot-microservicios-a086461cr.vercel.app/home)
+
+https://carlos-moya-t-spring-boot-microservicios-a086461cr.vercel.app/home
 
 A personal project built to practice microservices architecture with Java 21 and Spring Boot 3.
 The platform allows users to browse events, check availability, and book tickets through
