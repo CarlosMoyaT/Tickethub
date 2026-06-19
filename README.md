@@ -1,7 +1,4 @@
 # Event Ticket Booking Platform
-[![Live Demo](https://img.shields.io/badge/Live-Demo-success)](https://carlos-moya-t-spring-boot-microservicios-a086461cr.vercel.app/home)
-[![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.x-brightgreen)]()
-[![Microservices](https://img.shields.io/badge/Architecture-Microservices-blue)]()
 
 https://carlos-moya-t-spring-boot-microservicios-a086461cr.vercel.app/home
 
