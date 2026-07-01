@@ -11,8 +11,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { EventService } from '../../services/event.service';
 import { BookingService } from '../../services/booking.service';
+import { CustomerService } from '../../services/customer.service';
 import { EventModel } from '../../models/event.model';
 import { BookingRequest } from '../../models/booking.model';
+import { catchError, of, switchMap } from 'rxjs';
 
 @Component({
     selector: 'app-booking-form',
@@ -37,6 +39,7 @@ export class BookingFormComponent implements OnInit {
     private fb = inject(FormBuilder);
     private eventService = inject(EventService);
     private bookingService = inject(BookingService);
+    private customerService = inject(CustomerService);
     private route = inject(ActivatedRoute);
     private router = inject(Router);
     private snackBar = inject(MatSnackBar);
@@ -70,8 +73,7 @@ export class BookingFormComponent implements OnInit {
                 ]);
                 this.loading.set(false);
             },
-            error: (err: any) => {
-                console.error('Error loading event:', err)
+            error: () => {
                 this.snackBar.open('Error al cargar el evento', 'Cerrar', { duration: 3000 });
                 this.router.navigate(['/events']);
             }
@@ -87,36 +89,40 @@ export class BookingFormComponent implements OnInit {
     onSubmit(): void {
         if (this.bookingForm.valid && this.event()) {
             this.submitting.set(true);
+            const name = this.bookingForm.get('customerName')?.value;
+            const email = this.bookingForm.get('customerEmail')?.value;
 
-            const bookingRequest: BookingRequest = {
-                userId: this.generateCustomerId(),
-                eventId: this.event()!.id,
-                ticketCount: this.bookingForm.get('quantity')?.value
-            };
-
-            this.bookingService.createBooking(bookingRequest).subscribe({
-              next: (response) => {
-                this.submitting.set(false);
-                this.snackBar.open('¡Reserva realizada con éxito!', 'Cerrar', {
-                  duration: 5000,
-                  panelClass: ['success-snackbar']
-                });
-                this.router.navigate(['/events']);
-              },
-              error: (err) => {
-                this.submitting.set(false);
-                console.error('Error creating booking:', err);
-                this.snackBar.open('Error al realizar la reserva. Intenta de nuevo.', 'Cerrar', {
-                  duration: 3000,
-                  panelClass: ['error-snackbar']
-                });
-              }
+            this.customerService.findByEmail(email).pipe(
+                catchError(() => {
+                    return this.customerService.create({ name, email });
+                }),
+                switchMap(customer => {
+                    const bookingRequest: BookingRequest = {
+                        userId: customer.id,
+                        eventId: this.event()!.id,
+                        ticketCount: this.bookingForm.get('quantity')?.value
+                    };
+                    return this.bookingService.createBooking(bookingRequest);
+                })
+            ).subscribe({
+                next: () => {
+                    this.submitting.set(false);
+                    this.snackBar.open('¡Reserva realizada con éxito!', 'Cerrar', {
+                        duration: 5000,
+                        panelClass: ['success-snackbar']
+                    });
+                    this.router.navigate(['/orders']);
+                },
+                error: (err) => {
+                    this.submitting.set(false);
+                    console.error('Error creating booking:', err);
+                    this.snackBar.open('Error al realizar la reserva. Intenta de nuevo.', 'Cerrar', {
+                        duration: 3000,
+                        panelClass: ['error-snackbar']
+                    });
+                }
             });
         }
-    }
-
-    private generateCustomerId(): string {
-        return 'CUST-' + Date.now() + '-' + Math.random().toString(36).substring(2, 9);
     }
 
     goBack(): void {

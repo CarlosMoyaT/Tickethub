@@ -3,7 +3,7 @@ export const environment = {
     apiUrl: 'http://localhost:8090',
     keycloak: {
         url: 'http://localhost:8091',
-        realm: 'tickets-realm',
+        realm: 'ticketing-security-realm',
         clientId: 'tickets-client'
     }
 };

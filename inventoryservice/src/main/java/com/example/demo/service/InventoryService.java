@@ -36,12 +36,39 @@ public class InventoryService {
                         .eventId(event.getId())
                         .event(event.getName())
                         .capacity(event.getLeftCapacity())
+                        .totalCapacity(event.getTotalCapacity())
                         .ticketPrice(event.getTicketPrice())
                         .venue(VenueResponse.builder()
                                 .id(event.getVenue().getId())
                                 .name(event.getVenue().getName())
                                 .address(event.getVenue().getAddress())
+                                .location(event.getVenue().getAddress())
+                                .city("")
                                 .totalCapacity(event.getVenue().getTotalCapacity())
+                                .capacity(event.getVenue().getTotalCapacity())
+                                .build())
+                        .build())
+                .toList();
+    }
+
+    public List<EventInventoryResponse> getAvailableEvents() {
+        final List<Event> events = eventRepository.findAvailableEvents();
+
+        return events.stream()
+                .map(event -> EventInventoryResponse.builder()
+                        .eventId(event.getId())
+                        .event(event.getName())
+                        .capacity(event.getLeftCapacity())
+                        .totalCapacity(event.getTotalCapacity())
+                        .ticketPrice(event.getTicketPrice())
+                        .venue(VenueResponse.builder()
+                                .id(event.getVenue().getId())
+                                .name(event.getVenue().getName())
+                                .address(event.getVenue().getAddress())
+                                .location(event.getVenue().getAddress())
+                                .city("")
+                                .totalCapacity(event.getVenue().getTotalCapacity())
+                                .capacity(event.getVenue().getTotalCapacity())
                                 .build())
                         .build())
                 .toList();
@@ -62,13 +89,17 @@ public class InventoryService {
         return EventInventoryResponse.builder()
                 .event(event.getName())
                 .capacity(event.getLeftCapacity())
+                .totalCapacity(event.getTotalCapacity())
                 .ticketPrice(event.getTicketPrice())
                 .eventId(event.getId())
                 .venue(VenueResponse.builder()
                         .id(event.getVenue().getId())
                         .name(event.getVenue().getName())
                         .address(event.getVenue().getAddress())
+                        .location(event.getVenue().getAddress())
+                        .city("")
                         .totalCapacity(event.getVenue().getTotalCapacity())
+                        .capacity(event.getVenue().getTotalCapacity())
                         .build())
                 .build();
     }

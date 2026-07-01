@@ -1,9 +1,9 @@
 export const environment = {
   production: true,
-  apiUrl: '', // Configure for Render deployment
+  apiUrl: '',
   keycloak: {
     url: 'https://your-keycloak-url.onrender.com',
-    realm: 'tickets-realm',
+    realm: 'ticketing-security-realm',
     clientId: 'tickets-client'
   }
 };

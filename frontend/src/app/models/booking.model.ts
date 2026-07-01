@@ -1,11 +1,11 @@
 export interface BookingRequest {
-    userId: string;
+    userId: number;
     eventId: number;
     ticketCount: number;
 }
 
 export interface BookingResponse {
-    userId: string;
+    userId: number;
     eventId: number;
     ticketCount: number;
     totalPrice: number;
